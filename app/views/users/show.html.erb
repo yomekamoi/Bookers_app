@@ -1,0 +1,70 @@
+<% flash.each do |key, value| %>
+<%= content_tag(:div, value, class: "#{key}") %>
+<% end %>
+
+<!--グリッドシステム  -->
+
+<div class="container">
+<div class="row">
+<div class="col-xs-3">
+     <h2>User info</h2>
+      <%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" %>
+    <table class="table">
+      <tr>
+        <td><strong>name</strong></td>
+        <td><%= current_user.name %></td>
+      </tr>
+      <tr>
+        <td><strong>introduction</strong></td>
+        <td><%= current_user.introduction %></td>
+      </tr>
+    </table>
+    <% if @user.id == current_user.id %>
+        <%= link_to "",edit_user_path(current_user.id), class:"col-xs-12 btn btn-default glyphicon glyphicon-wrench edit" %>
+      <% else %>
+        <%= link_to "",user_path(current_user), class:"col-xs-12 btn btn-default glyphicon glyphicon-wrench edit" %>
+    <% end %>
+    
+
+    <!-- 本の一覧 -->
+    <div>
+      <h2>New book</h2>
+      <%= form_for(@book, url: books_path) do |f| %>
+      <h4><strong>Title</strong>
+      <%= f.text_field :title, class: "book_title f_book" %></h4>
+      <h4><strong>Opinion</strong>
+        <%= f.text_area :body, class: "book_body f_book" %></h4>
+      <p><%= f.submit "Create Book", class: "btn btn-primary btn-block" %></p>
+      <% end %>
+    </div>
+  </div>
+  <!-- 左カラムここまで -->
+
+  <!-- 右カラムここから -->
+  <div class="col-xs-9">
+
+    <h2>Books</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Opinion</th>
+            <th cllsapn="4"></th>
+          </tr>
+        </thead>
+        <% @books.each do |book| %>
+          <tr>
+            <td><span><%= attachment_image_tag @user, :profile_image, :fill, 40, 40,fallback: "no_image.jpg"%></span></td>
+            <td><span><%= link_to book.title,book_path(book)%></span></td>
+            <td><span><%= book.body %></span></td>
+          </tr>
+        <% end %>
+      </table>
+
+   <!-- 右カラムここまで -->
+  </div>
+</div>
+</div>
+</div>
+</div>

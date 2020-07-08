@@ -1,0 +1,33 @@
+<!-- 左カラムの部分テンプレート -->
+<!-- book/index book/show user/index user/show -->
+<!-- 変数　@book -->
+
+    <!-- ユーザー紹介 -->
+    <h2>User info</h2>
+      <%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" %>
+    <table class="table">
+      <tr>
+        <td><strong>name</strong></td>
+        <td><%= current_user.name %></td>
+      </tr>
+      <tr>
+        <td><strong>introduction</strong></td>
+        <td><%= current_user.introduction %></td>
+      </tr>
+    </table>
+    <%= link_to edit_user_path(current_user.id), class: "edit_user_#{user.id}, btn btn-default btn-block" do %>
+        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+      <% end %>
+    
+
+    <!-- 本の一覧 -->
+    <div>
+      <h2>New book</h2>
+      <%= form_for(@book) do |f| %>
+      <h4><strong>Title</strong>
+      <%= f.text_field :title, class: "book_title f_book" %></h4>
+      <h4><strong>Opinion</strong>
+        <%= f.text_area :body, class: "book_body f_book" %></h4>
+      <p><%= f.submit "Create Book", class: "btn btn-primary btn-block" %></p>
+      <% end %>
+    </div>
